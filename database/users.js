@@ -49,13 +49,13 @@ async function getUser(postData) {
 	let getUserSQL = `
 		SELECT user_id, username, password
 		FROM user
-		WHERE username = '${postData.user}';
+		WHERE username = ?;
 	`;
 
 	console.log(getUserSQL);
 
 	try {
-		const results = await database.query(getUserSQL);
+		const results = await database.query(getUserSQL, [postData.user]);
 		console.log(results[0]);
 		return results[0];
 	} catch (error) {
